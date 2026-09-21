@@ -27,6 +27,12 @@ function dateFr(iso) {
   return `${j}/${m}/${a}`;
 }
 
+/** Distance en francais : separateur decimal virgule, comme sur tout document fiscal. */
+function km(valeur) {
+  if (valeur == null || !Number.isFinite(Number(valeur))) return "";
+  return String(valeur).replace(".", ",");
+}
+
 function euros(valeur) {
   if (valeur == null || !Number.isFinite(Number(valeur))) return "";
   return `${Number(valeur).toFixed(2).replace(".", ",")} €`;
@@ -134,12 +140,12 @@ function construireHtmlJustificatif(donnees) {
 
   const typeTrajet = trajet.allerRetour ? "Aller-retour" : "Aller simple";
   const ligneDistance = trajet.allerRetour
-    ? `${trajet.allerKm} km aller x 2 = <strong>${trajet.distanceKm} km</strong>`
-    : `<strong>${trajet.distanceKm} km</strong>`;
+    ? `${km(trajet.allerKm)} km aller x 2 = <strong>${km(trajet.distanceKm)} km</strong>`
+    : `<strong>${km(trajet.distanceKm)} km</strong>`;
   const ecart = distanceDeclaree != null && Math.abs(Number(distanceDeclaree) - trajet.distanceKm) > 0.05;
   const noteEcart = ecart
-    ? `<div class="alerte">Distance indemnisée retenue : <strong>${echapper(distanceDeclaree)} km</strong>
-        (ajustée manuellement, itinéraire théorique : ${trajet.distanceKm} km).</div>`
+    ? `<div class="alerte">Distance indemnisée retenue : <strong>${echapper(km(distanceDeclaree))} km</strong>
+        (ajustée manuellement, itinéraire théorique : ${km(trajet.distanceKm)} km).</div>`
     : "";
 
   const ligne = (cle, valeur) => `<tr><th>${echapper(cle)}</th><td>${valeur}</td></tr>`;
@@ -191,4 +197,5 @@ module.exports = {
   dateFr,
   echapper,
   euros,
+  km,
 };

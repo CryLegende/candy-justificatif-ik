@@ -22,6 +22,26 @@ propre.
 - **Récapitulatif annuel** groupé par véhicule, en PDF ou en CSV pour un tableur.
 - **Parc de véhicules**, avec la carte grise conservée une fois et rattachée aux justificatifs.
 
+## Aperçu
+
+![Saisie d'un déplacement](docs/captures/saisie.png)
+
+Les adresses sont proposées par la Base Adresse Nationale, la distance vient de l'itinéraire
+routier et reste modifiable, le montant se met à jour pendant la saisie. Il tient compte du
+cumul annuel du véhicule, rappelé sous le montant : à barème progressif, deux trajets de même
+distance ne valent pas la même chose selon la position dans l'année.
+
+![Historique de l'année et totaux](docs/captures/historique.png)
+
+L'interface suit le thème clair ou sombre du système.
+
+![Le même écran en thème sombre](docs/captures/historique-sombre.png)
+
+Chaque déplacement enregistré produit son justificatif, avec la carte du trajet réellement
+calculé :
+
+![Justificatif de trajet professionnel](docs/captures/justificatif.png)
+
 ## Démarrer
 
 ```bash

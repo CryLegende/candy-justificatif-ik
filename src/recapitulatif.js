@@ -9,6 +9,7 @@
 
 const { echapper, dateFr, euros } = require("./justificatif");
 
+/** Distance affichee avec son unite. Le module justificatif expose la meme regle sans unite. */
 function km(valeur) {
   return `${Number(valeur || 0).toFixed(1).replace(".", ",")} km`;
 }

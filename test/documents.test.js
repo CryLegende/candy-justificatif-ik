@@ -21,7 +21,8 @@ test("le justificatif porte les mentions qui le rendent opposable", () => {
     trajet, montant: 862.79, baremeLibelle: "Barème 2026",
   });
   assert.match(html, /Justificatif de trajet professionnel/);
-  assert.match(html, /1356\.6 km/);
+  assert.match(html, /1356,6 km/);
+  assert.ok(!html.includes("1356.6"), "pas de separateur decimal anglais sur un document francais");
   assert.match(html, /862,79/);
   assert.match(html, /Base Adresse Nationale/);
   assert.match(html, /barème kilométrique forfaitaire/);
