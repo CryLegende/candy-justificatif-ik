@@ -1,0 +1,39 @@
+{
+  "name": "indemnites-kilometriques",
+  "version": "1.0.0",
+  "description": "Calcul, justificatif et recapitulatif des indemnites kilometriques au bareme fiscal francais. Adresses BAN, itineraire OSRM, PDF.",
+  "main": "src/index.js",
+  "license": "MIT",
+  "author": "Cry_Legende",
+  "keywords": [
+    "indemnites-kilometriques",
+    "bareme-kilometrique",
+    "frais-kilometriques",
+    "note-de-frais",
+    "comptabilite",
+    "osrm",
+    "base-adresse-nationale"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/start.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "optionalDependencies": {
+    "puppeteer": "^24.42.0",
+    "sharp": "^0.34.5"
+  },
+  "files": [
+    "src",
+    "server",
+    "public",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ]
+}

@@ -1,0 +1,19 @@
+services:
+  indemnites-kilometriques:
+    build: .
+    image: indemnites-kilometriques
+    container_name: indemnites-kilometriques
+    restart: unless-stopped
+    ports:
+      - "3200:3200"
+    volumes:
+      # Tout l'etat de l'application vit ici. Sauvegardez ce dossier, rien d'autre.
+      - ./donnees:/donnees
+    environment:
+      IK_ENTREPRISE: ""
+      # Laisser vide expose l'API a qui atteint le port. Renseigner une valeur la protege.
+      IK_JETON: ""
+      # Instances publiques par defaut. Renseignez les votres pour un usage regulier.
+      # IK_OSRM_URL: "http://osrm:5000"
+      # IK_BAN_URL: "https://api-adresse.data.gouv.fr/search/"
+      # IK_TUILES_URL: "https://tuiles.exemple.fr/{z}/{x}/{y}.png"

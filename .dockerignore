@@ -1,0 +1,8 @@
+node_modules
+donnees
+.git
+.gitignore
+docs
+test
+exemples
+*.md

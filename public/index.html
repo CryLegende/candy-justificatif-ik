@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indemnités kilométriques</title>
+  <meta name="description" content="Saisie, calcul au barème et justificatifs des indemnités kilométriques.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="bandeau">
+      <h1>Indemnités kilométriques</h1>
+      <span class="bareme" id="bareme-libelle"></span>
+    </div>
+  </header>
+
+  <div class="avertissement" id="avertissement-bareme" hidden></div>
+
+  <main>
+    <nav class="onglets" role="tablist">
+      <button role="tab" id="onglet-saisie" aria-selected="true" aria-controls="vue-saisie">Nouveau déplacement</button>
+      <button role="tab" id="onglet-historique" aria-selected="false" aria-controls="vue-historique">Historique</button>
+      <button role="tab" id="onglet-vehicules" aria-selected="false" aria-controls="vue-vehicules">Véhicules</button>
+    </nav>
+
+    <section id="vue-saisie" role="tabpanel" aria-labelledby="onglet-saisie">
+      <form class="carte" id="formulaire-indemnite" autocomplete="off">
+        <h2>Déplacement</h2>
+        <div class="grille">
+          <div>
+            <label for="champ-date">Date du déplacement</label>
+            <input type="date" id="champ-date" required>
+          </div>
+          <div>
+            <label for="champ-beneficiaire">Bénéficiaire</label>
+            <input type="text" id="champ-beneficiaire" placeholder="Nom de la personne indemnisée" required>
+          </div>
+          <div>
+            <label for="champ-vehicule">Véhicule</label>
+            <select id="champ-vehicule" required></select>
+          </div>
+          <div>
+            <label for="champ-motif">Motif professionnel</label>
+            <input type="text" id="champ-motif" placeholder="Rendez-vous client, intervention, livraison" required>
+          </div>
+          <div class="pleine suggestions" id="bloc-depart">
+            <label for="champ-depart">Adresse de départ</label>
+            <input type="text" id="champ-depart" placeholder="Commencez à taper, puis choisissez dans la liste">
+          </div>
+          <div class="pleine suggestions" id="bloc-arrivee">
+            <label for="champ-arrivee">Adresse d'arrivée</label>
+            <input type="text" id="champ-arrivee" placeholder="Commencez à taper, puis choisissez dans la liste">
+          </div>
+          <div class="case">
+            <input type="checkbox" id="champ-aller-retour" checked>
+            <label for="champ-aller-retour">Aller-retour</label>
+          </div>
+          <div>
+            <label for="champ-distance">Distance retenue (km)</label>
+            <input type="number" id="champ-distance" step="0.1" min="0.1" placeholder="Calculée depuis les adresses">
+          </div>
+        </div>
+
+        <div class="resume" id="resume">
+          <div>
+            <div class="montant" id="resume-montant">-</div>
+            <div class="detail" id="resume-detail">Renseignez un véhicule, une date et une distance.</div>
+          </div>
+          <button type="button" class="secondaire" id="bouton-recalculer">Recalculer</button>
+        </div>
+
+        <div class="boutons">
+          <button type="submit" class="principal" id="bouton-enregistrer">Enregistrer et produire le justificatif</button>
+          <button type="reset" class="secondaire">Vider le formulaire</button>
+        </div>
+        <div class="message" id="message-saisie" hidden></div>
+      </form>
+    </section>
+
+    <section id="vue-historique" role="tabpanel" aria-labelledby="onglet-historique" hidden>
+      <div class="carte">
+        <div class="barre">
+          <div class="champ">
+            <label for="champ-annee">Année</label>
+            <select id="champ-annee"></select>
+          </div>
+          <div class="espace"></div>
+          <button type="button" class="secondaire" id="bouton-recap-pdf">Récapitulatif PDF</button>
+          <button type="button" class="secondaire" id="bouton-recap-csv">Export CSV</button>
+        </div>
+        <table class="liste">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Trajet</th>
+              <th>Véhicule</th>
+              <th class="num">Distance</th>
+              <th class="num">Indemnité</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="corps-historique"></tbody>
+        </table>
+        <div class="vide" id="historique-vide" hidden>Aucun déplacement enregistré pour cette année.</div>
+        <div class="totaux" id="totaux"></div>
+      </div>
+    </section>
+
+    <section id="vue-vehicules" role="tabpanel" aria-labelledby="onglet-vehicules" hidden>
+      <div class="carte">
+        <h2>Parc</h2>
+        <div id="liste-vehicules"></div>
+        <div class="vide" id="vehicules-vide" hidden>Aucun véhicule. Ajoutez-en un ci-dessous.</div>
+      </div>
+
+      <form class="carte" id="formulaire-vehicule" autocomplete="off">
+        <h2>Ajouter un véhicule</h2>
+        <div class="grille">
+          <div>
+            <label for="champ-libelle">Nom</label>
+            <input type="text" id="champ-libelle" placeholder="Voiture personnelle">
+          </div>
+          <div>
+            <label for="champ-immatriculation">Immatriculation</label>
+            <input type="text" id="champ-immatriculation" placeholder="AA-123-BB" required>
+          </div>
+          <div>
+            <label for="champ-puissance">Puissance fiscale (CV)</label>
+            <input type="number" id="champ-puissance" min="1" max="99" step="1" required>
+          </div>
+          <div class="case">
+            <input type="checkbox" id="champ-electrique">
+            <label for="champ-electrique">100 % électrique (majoration de 20 %)</label>
+          </div>
+        </div>
+        <div class="boutons">
+          <button type="submit" class="principal">Ajouter</button>
+        </div>
+        <div class="message" id="message-vehicule" hidden></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    Barème officiel : <a id="lien-bareme" href="#" target="_blank" rel="noopener">source</a>.
+    Adresses normalisées par la Base Adresse Nationale, distances calculées par OSRM.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
