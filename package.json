@@ -35,5 +35,13 @@
     "docs",
     "README.md",
     "LICENSE"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryLegende/candy-justificatif-ik.git"
+  },
+  "homepage": "https://github.com/CryLegende/candy-justificatif-ik#readme",
+  "bugs": {
+    "url": "https://github.com/CryLegende/candy-justificatif-ik/issues"
+  }
 }

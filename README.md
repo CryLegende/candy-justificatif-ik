@@ -25,8 +25,8 @@ propre.
 ## Démarrer
 
 ```bash
-git clone https://github.com/Cry-Legende/indemnites-kilometriques.git
-cd indemnites-kilometriques
+git clone https://github.com/CryLegende/candy-justificatif-ik.git
+cd candy-justificatif-ik
 docker compose up -d --build
 ```
 
